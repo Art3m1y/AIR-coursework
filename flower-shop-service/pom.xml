@@ -10,7 +10,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
-	<groupId>ru.Art3m1y</groupId>
+	<groupId>edu.mirea</groupId>
 	<artifactId>flower-shop-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>flower-shop-service</name>

@@ -1,6 +1,31 @@
 spring:
   application:
-    name: flower-shop-service
+    name: delivery-service
+
+integration:
+  flower-shop-service:
+    url: http://localhost:8082
+    change-delivery-status: /api/v1/deliveries/{id}/change-status
+    api-key: my-secure-api-key
 
 server:
   port: 8083
+
+resilience4j:
+  retry:
+    instances:
+      flower-shop-service:
+        max-attempts: 3
+        wait-duration: 1s
+        enable-exponential-backoff: true
+        exponential-max-wait-duration: 8s
+        exponential-backoff-multiplier: 2
+        retry-exceptions:
+          - org.springframework.web.client.HttpServerErrorException
+          - org.springframework.web.client.HttpClientErrorException.TooManyRequests
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,metrics,prometheus,info

@@ -1,6 +1,6 @@
 spring:
   application:
-    name: delivery-service
+    name: flower-shop-service
 
 rest:
   specifications:
