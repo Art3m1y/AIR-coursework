@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: flower-shop-service
+
+server:
+  port: 8083
