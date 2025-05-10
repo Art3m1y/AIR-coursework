@@ -23,6 +23,9 @@ public enum DeliveryStatus {
     private final boolean isCancellable;
 
     public static Optional<DeliveryStatus> findNextFor(DeliveryStatus status) {
+        if (!status.orderMarker.isWithOrder()) {
+            throw new IllegalArgumentException("Статус %s является конечным".formatted(status));
+        }
         var desiredOrder = status.orderMarker.getOrderId() + 1;
         return Arrays.stream(DeliveryStatus.values())
                 .filter(currentStatus -> currentStatus.orderMarker.getOrderId() == desiredOrder)

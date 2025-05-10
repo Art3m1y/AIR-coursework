@@ -1,4 +1,4 @@
-package edu.mirea.flower_shop_service.adapter.out;
+package edu.mirea.flower_shop_service.infrastructure.out.rest;
 
 import org.springframework.web.util.UriComponentsBuilder;
 

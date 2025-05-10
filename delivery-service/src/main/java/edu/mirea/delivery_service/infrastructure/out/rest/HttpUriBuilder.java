@@ -1,4 +1,4 @@
-package edu.mirea.delivery_service.adapter.out.sourcesystem;
+package edu.mirea.delivery_service.infrastructure.out.rest;
 
 import org.springframework.web.util.UriComponentsBuilder;
 

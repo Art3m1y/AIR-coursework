@@ -2,7 +2,7 @@ package edu.mirea.delivery_service.adapter.out.sourcesystem.specific;
 
 import edu.mirea.delivery_service.adapter.out.IntegrationException;
 import edu.mirea.delivery_service.adapter.out.IntegrationType;
-import edu.mirea.delivery_service.adapter.out.sourcesystem.HttpUriBuilder;
+import edu.mirea.delivery_service.infrastructure.out.rest.HttpUriBuilder;
 import edu.mirea.delivery_service.application.port.out.ChangeDeliveryStatusInfo;
 import io.github.resilience4j.retry.annotation.Retry;
 import lombok.RequiredArgsConstructor;

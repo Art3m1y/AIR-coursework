@@ -1,6 +1,6 @@
 package edu.mirea.flower_shop_service.adapter.out.deliveryservice;
 
-import edu.mirea.flower_shop_service.adapter.out.HttpUriBuilder;
+import edu.mirea.flower_shop_service.infrastructure.out.rest.HttpUriBuilder;
 import edu.mirea.flower_shop_service.adapter.out.IntegrationException;
 import edu.mirea.flower_shop_service.adapter.out.IntegrationType;
 import edu.mirea.flower_shop_service.adapter.out.deliveryservice.dto.CreateDeliveryRsDto;
