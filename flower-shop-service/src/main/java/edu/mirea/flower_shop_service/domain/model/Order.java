@@ -13,13 +13,12 @@ public class Order {
     @Setter
     private DeliveryId deliveryId;
     private final List<Item> items;
-    private Recipient recipient;
-    private Address address;
+    private final Recipient recipient;
+    private final Address address;
     @Setter
     private OrderStatus status;
 
     public Order(OrderId id, List<Item> items, Recipient recipient, Address address, OrderStatus status) {
-        this.deliveryId = deliveryId;
         this.id = id;
         this.recipient = recipient;
         this.address = address;

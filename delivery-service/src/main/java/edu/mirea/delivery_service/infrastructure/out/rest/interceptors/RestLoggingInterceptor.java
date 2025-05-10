@@ -23,7 +23,7 @@ public class RestLoggingInterceptor implements ClientHttpRequestInterceptor {
             ClientHttpRequestExecution execution
     ) throws IOException {
         logRequest(request, body);
-        var response = execution.execute(request, body);
+        var response = new CachingBodyClientHttpResponse(execution.execute(request, body));
         logResponse(response);
         return response;
     }

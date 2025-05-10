@@ -11,6 +11,7 @@ import edu.mirea.delivery_service.application.port.out.DeliveryPersistencePort;
 import edu.mirea.delivery_service.application.port.out.SourceServicePort;
 import edu.mirea.delivery_service.domain.enumeration.DeliveryStatus;
 import edu.mirea.delivery_service.domain.exception.ObjectNotFoundException;
+import edu.mirea.delivery_service.domain.model.Delivery;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -31,17 +32,22 @@ public class DeliveryService implements CreateDeliveryUseCase, CancelDeliveryUse
         }
 
         var delivery = deliveryOpt.get();
-        delivery.setStatus(DeliveryStatus.CANCELLED);
+        delivery.cancelDelivery();
+
+        log.info("Доставка с идентификатором {} отменена", delivery.getId().getValue());
     }
 
     @Override
-    public void createDelivery(CreateDeliveryCommand command) {
+    public Delivery createDelivery(CreateDeliveryCommand command) {
         var delivery = command.getDelivery();
+
         delivery.setStatus(DeliveryStatus.NEW);
 
-        deliveryPersistencePort.addDelivery(delivery);
+        var deliveryId = deliveryPersistencePort.addDelivery(delivery);
+        delivery.setId(deliveryId);
 
-        log.info("Доставка для внешнего заказа {} сохранена");
+        log.info("Доставка для внешнего заказа сохранена");
+        return delivery;
     }
 
     @Override
@@ -49,15 +55,11 @@ public class DeliveryService implements CreateDeliveryUseCase, CancelDeliveryUse
         var deliveryOpt = deliveryPersistencePort.findDelivery(command.getId());
 
         if (deliveryOpt.isEmpty()) {
-            throw new ObjectNotFoundException("Не найдена доставка с идентификатором %s".formatted(command.getId().getValue()));
+            throw new ObjectNotFoundException("Не найдена доставка".formatted(command.getId().getValue()));
         }
 
         var delivery = deliveryOpt.get();
-        var nextStatusOpt = DeliveryStatus.findNextFor(delivery.getStatus());
-        if (nextStatusOpt.isEmpty()) {
-            throw new IllegalStateException("Доставка находится в конечном состоянии, невозможно перевести статус");
-        }
-        delivery.setStatus(nextStatusOpt.get());
+        delivery.moveDeliveryStatus();
 
         var changeDeliveryStatusInfo = new ChangeDeliveryStatusInfo(delivery.getId(), delivery.getStatus());
         sourceServicePort.changeStatus(changeDeliveryStatusInfo);

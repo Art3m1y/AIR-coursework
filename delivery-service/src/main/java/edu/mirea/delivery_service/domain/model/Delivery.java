@@ -21,4 +21,23 @@ public class Delivery {
         this.address = address;
         this.items = items;
     }
+
+    public void moveDeliveryStatus() {
+        var nextStatusOpt = DeliveryStatus.findNextFor(status);
+        if (nextStatusOpt.isEmpty()) {
+            throw new IllegalStateException("Доставка находится в конечном состоянии, невозможно перевести статус");
+        }
+        this.setStatus(nextStatusOpt.get());
+    }
+
+    public void cancelDelivery() {
+        checkCancelAvailability();
+        this.setStatus(DeliveryStatus.CANCELLED);
+    }
+
+    private void checkCancelAvailability() {
+        if (!status.isCancellable()) {
+            throw new IllegalStateException("Доставка в статусе %s не может быть отменена".formatted(status));
+        }
+    }
 }

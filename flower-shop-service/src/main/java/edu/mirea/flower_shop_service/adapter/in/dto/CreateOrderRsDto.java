@@ -1,4 +1,4 @@
-package edu.mirea.delivery_service.adapter.in.dto;
+package edu.mirea.flower_shop_service.adapter.in.dto;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -6,22 +6,22 @@ import lombok.extern.jackson.Jacksonized;
 
 import java.util.List;
 
-@Builder
 @Jacksonized
+@Builder
 @Getter
-public class CreateDeliveryRsDto {
-    private Recipient recipient;
-    private Address address;
-    private List<Item> items;
-    private String id;
-    private String status;
+public class CreateOrderRsDto {
+    private final String id;
+    private final String status;
+    private final Recipient recipient;
+    private final Address address;
+    private final List<Item> items;
 
     @Builder
     @Jacksonized
     @Getter
     public static class Recipient {
-        private String name;
-        private String phone;
+        private final String name;
+        private final String phone;
     }
 
     @Builder

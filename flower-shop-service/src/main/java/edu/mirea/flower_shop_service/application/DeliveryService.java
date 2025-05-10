@@ -30,7 +30,7 @@ public class DeliveryService implements ChangeDeliveryStatusUseCase, CreateDeliv
 
     @Override
     public void changeStatus(ChangeDeliveryStatusCommand command) {
-        var deliveryOpt = deliveryPersistencePort.findDelivery(command.getId());
+        var deliveryOpt = deliveryPersistencePort.findDelivery(command.getId().getValue().toString());
 
         if (deliveryOpt.isEmpty()) {
             throw new ObjectNotFoundException("Не найдена доставка с идентификатором %s".formatted(command.getId().getValue()));
@@ -41,7 +41,7 @@ public class DeliveryService implements ChangeDeliveryStatusUseCase, CreateDeliv
 
         deliveryPersistencePort.updateDeliveryState(delivery);
 
-        log.info("Статус доставки с идентификатором {} изменен на {}", command.getId().getValue(), command.getStatus());
+        log.info("Статус доставки изменен на {}", command.getStatus());
     }
 
     @Override
@@ -64,14 +64,12 @@ public class DeliveryService implements ChangeDeliveryStatusUseCase, CreateDeliv
         
         delivery.markAsSuccess(deliveryCreationResult.getExternalId(), deliveryCreationResult.getExternalStatus());
         
-        var deliveryId = deliveryPersistencePort.addDelivery(delivery);
-        delivery.setId(deliveryId);
+        deliveryPersistencePort.addDelivery(delivery);
 
-        order.setDeliveryId(delivery.getId());
         order.setStatus(OrderStatus.DELIVERING);
         orderPersistencePort.updateOrderState(order);
 
-        log.info("Доставка для заказа {} создана успешно", command.getId().getValue());
+        log.info("Доставка по переданному заказу успешно создана");
     }
 
     @Override
@@ -86,7 +84,7 @@ public class DeliveryService implements ChangeDeliveryStatusUseCase, CreateDeliv
             throw new IllegalStateException("У заказа с идентификатором %s пока нет доставки".formatted(command.getId().getValue()));
         }
 
-        var deliveryOpt = deliveryPersistencePort.findDelivery(order.getDeliveryId());
+        var deliveryOpt = deliveryPersistencePort.findDelivery(order.getDeliveryId().getValue().toString());
         var delivery = deliveryOpt.get();
 
         var deliveryCancellationInfo = DeliveryCancellationInfo.builder()
@@ -95,7 +93,7 @@ public class DeliveryService implements ChangeDeliveryStatusUseCase, CreateDeliv
         deliveryServicePort.cancelDelivery(deliveryCancellationInfo);
         delivery.setInnerStatus(InnerDeliveryStatus.CANCELLED);
 
-        log.info("Доставка для заказа {} успешно отменена", command.getId().getValue());
+        log.info("Доставка для переданного заказа успешного отменена");
     }
 
     private DeliveryCreationInfo mapToDeliveryCreationInfo(Delivery delivery) {

@@ -2,9 +2,14 @@ spring:
   application:
     name: delivery-service
 
+rest:
+  specifications:
+    flower-shop-service:
+      read-timeout: 3s
+
 integration:
   flower-shop-service:
-    url: http://localhost:8082
+    url: http://localhost:8084
     change-delivery-status: /api/v1/deliveries/{id}/change-status
     api-key: my-secure-api-key
 

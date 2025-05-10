@@ -1,5 +1,6 @@
 package edu.mirea.delivery_service.infrastructure.in.rest.errorhandling;
 
+import edu.mirea.delivery_service.domain.exception.ObjectNotFoundException;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

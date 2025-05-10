@@ -3,7 +3,7 @@ package edu.mirea.flower_shop_service.adapter.in;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import edu.mirea.flower_shop_serviceadapter.in.dto.ChangeStatusRqDto;
+import edu.mirea.flower_shop_service.adapter.in.dto.ChangeStatusRqDto;
 import edu.mirea.flower_shop_service.application.port.in.ChangeDeliveryStatusCommand;
 import edu.mirea.flower_shop_service.application.port.in.ChangeDeliveryStatusUseCase;
 import edu.mirea.flower_shop_service.domain.model.DeliveryId;

@@ -8,8 +8,6 @@ import java.util.List;
 
 @Getter
 public class Delivery {
-    @Setter
-    private DeliveryId id;
     private Recipient recipient;
     private Address address;
     private List<Item> items;

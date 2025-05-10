@@ -6,9 +6,9 @@ import lombok.extern.jackson.Jacksonized;
 
 import java.util.List;
 
+@Getter
 @Builder
 @Jacksonized
-@Getter
 public class CreateDeliveryRsDto {
     private final Recipient recipient;
     private final Address address;
@@ -18,6 +18,7 @@ public class CreateDeliveryRsDto {
 
     @Builder
     @Jacksonized
+    @Getter
     public static class Recipient {
         private final String name;
         private final String phone;
@@ -25,6 +26,7 @@ public class CreateDeliveryRsDto {
 
     @Builder
     @Jacksonized
+    @Getter
     public static class Address {
         private final String city;
         private final String street;
@@ -35,6 +37,7 @@ public class CreateDeliveryRsDto {
 
     @Builder
     @Jacksonized
+    @Getter
     public static class Item {
         private final String code;
         private final int quantity;

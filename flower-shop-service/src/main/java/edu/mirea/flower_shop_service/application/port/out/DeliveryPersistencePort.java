@@ -1,12 +1,11 @@
 package edu.mirea.flower_shop_service.application.port.out;
 
 import edu.mirea.flower_shop_service.domain.model.Delivery;
-import edu.mirea.flower_shop_service.domain.model.DeliveryId;
 
 import java.util.Optional;
 
 public interface DeliveryPersistencePort {
-    Optional<Delivery> findDelivery(DeliveryId id);
+    Optional<Delivery> findDelivery(String id);
     void updateDeliveryState(Delivery delivery);
-    DeliveryId addDelivery(Delivery delivery);
+    void addDelivery(Delivery delivery);
 }

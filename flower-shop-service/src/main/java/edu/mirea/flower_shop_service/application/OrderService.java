@@ -1,5 +1,6 @@
 package edu.mirea.flower_shop_service.application;
 
+import edu.mirea.flower_shop_service.domain.model.Order;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ public class OrderService implements CreateOrderUseCase {
     private final OrderPersistencePort orderPersistencePort;
 
     @Override
-    public void createOrder(CreateOrderCommand command) {
+    public Order createOrder(CreateOrderCommand command) {
         var order = command.getOrder();
         order.setStatus(OrderStatus.NEW);
 
@@ -23,5 +24,7 @@ public class OrderService implements CreateOrderUseCase {
         order.setId(orderId);
 
         log.info("Создан новый заказ");
+
+        return order;
     }
 }

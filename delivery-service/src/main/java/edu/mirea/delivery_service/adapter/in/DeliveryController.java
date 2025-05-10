@@ -2,6 +2,7 @@ package edu.mirea.delivery_service.adapter.in;
 
 import edu.mirea.delivery_service.application.port.in.CancelDeliveryCommand;
 import edu.mirea.delivery_service.application.port.in.CancelDeliveryUseCase;
+import edu.mirea.delivery_service.application.port.in.CreateDeliveryCommand;
 import edu.mirea.delivery_service.application.port.in.CreateDeliveryUseCase;
 import edu.mirea.delivery_service.application.port.in.PromoteDeliveryStatusCommand;
 import edu.mirea.delivery_service.application.port.in.PromoteDeliveryStatusUseCase;
@@ -22,10 +23,12 @@ public class DeliveryController {
     private final CreateDeliveryUseCase createDeliveryUseCase;
     private final CancelDeliveryUseCase cancelDeliveryUseCase;
     private final PromoteDeliveryStatusUseCase promoteDeliveryStatusUseCase;
+    private final DeliveryMapper deliveryMapper;
 
     @PostMapping
     public CreateDeliveryRsDto createDelivery(@RequestBody CreateDeliveryRqDto requestDto) {
-        createDeliveryUseCase.createDelivery(co);
+        var result = createDeliveryUseCase.createDelivery(new CreateDeliveryCommand(deliveryMapper.toDelivery(requestDto)));
+        return deliveryMapper.toResponseDto(result);
     }
 
     @DeleteMapping("{deliveryId}/cancel")
@@ -35,7 +38,7 @@ public class DeliveryController {
         );
     }
 
-    @PostMapping("/{id}/promote-status")
+    @PostMapping("/{deliveryId}/promote-status")
     public void promoteDeliveryStatus(@PathVariable UUID deliveryId) {
         promoteDeliveryStatusUseCase.promoteDeliveryStatus(
                 new PromoteDeliveryStatusCommand(new DeliveryId(deliveryId))

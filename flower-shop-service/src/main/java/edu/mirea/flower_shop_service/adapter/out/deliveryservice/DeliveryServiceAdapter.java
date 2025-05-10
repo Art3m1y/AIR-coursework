@@ -40,6 +40,8 @@ public class DeliveryServiceAdapter implements DeliveryServicePort {
                 .retrieve()
                 .body(CreateDeliveryRsDto.class);
 
+        log.info("Запрос в сервис-агрегатор доставки заказов с целью создания создания новой доставки выполнен успешно");
+
         return deliveryMapper.fromResponseDto(responseDto);
     }
 
@@ -59,5 +61,7 @@ public class DeliveryServiceAdapter implements DeliveryServicePort {
                 .header(API_KEY_HEADER, apiKey)
                 .retrieve()
                 .toBodilessEntity();
+
+        log.info("Запрос в сервис-агрегатор доставки заказов с целью отмены имеющейся доставки выполнен успешно");
     }
 }

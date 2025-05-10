@@ -30,7 +30,7 @@ public class FlowerShopServiceAdapter implements SourceServicePort {
 
         restClient.post()
                 .uri(uriBuilder -> uriBuilder
-                        .path(flowerShopServiceProperties.getUrl())
+                        .path(flowerShopServiceProperties.getChangeDeliveryStatus())
                         .build(info.getDeliveryId().getValue()))
                 .contentType(REQUEST_MEDIA_TYPE)
                 .body(new ChangeDeliveryStatusRqDto(info.getDeliveryStatus().name()))

@@ -26,13 +26,8 @@ public class RequestResponseLoggingFilter extends OncePerRequestFilter {
         var requestWrapper  = new ContentCachingRequestWrapper(req);
         var responseWrapper = new ContentCachingResponseWrapper(res);
 
-        try {
-            chain.doFilter(requestWrapper, responseWrapper);
-        } finally {
-
-        }
-
         logRequest(requestWrapper);
+        chain.doFilter(requestWrapper, responseWrapper);
         logResponse(responseWrapper);
 
         responseWrapper.copyBodyToResponse();

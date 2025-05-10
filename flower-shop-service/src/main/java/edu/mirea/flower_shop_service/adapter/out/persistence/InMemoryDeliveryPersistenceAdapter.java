@@ -1,11 +1,11 @@
 package edu.mirea.flower_shop_service.adapter.out.persistence;
 
+import edu.mirea.flower_shop_service.application.port.out.DeliveryPersistencePort;
+import edu.mirea.flower_shop_service.domain.model.Delivery;
+import edu.mirea.flower_shop_service.infrastructure.common.LoggableContext;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import edu.mirea.flower_shop_service.application.port.out.DeliveryPersistencePort;
-import edu.mirea.flower_shop_service.domain.model.Delivery;
-import edu.mirea.flower_shop_service.domain.model.DeliveryId;
 
 import java.util.Map;
 import java.util.Optional;
@@ -16,22 +16,24 @@ import java.util.concurrent.ConcurrentHashMap;
 @Slf4j
 @AllArgsConstructor
 public class InMemoryDeliveryPersistenceAdapter implements DeliveryPersistencePort {
-    private final Map<UUID, Delivery> deliveries = new ConcurrentHashMap<>();
+    private final Map<String, Delivery> deliveries = new ConcurrentHashMap<>();
 
     @Override
-    public Optional<Delivery> findDelivery(DeliveryId id) {
-        return Optional.of(deliveries.get(id.getValue()));
+    public Optional<Delivery> findDelivery(String id) {
+        LoggableContext.putDeliveryId(UUID.fromString(id));
+        return Optional.of(deliveries.get(id));
     }
 
     @Override
     public void updateDeliveryState(Delivery delivery) {
-        deliveries.put(delivery.getId().getValue(), delivery);
+        deliveries.put(delivery.getExternalId(), delivery);
+        log.info("Доставка обновлена");
     }
 
     @Override
-    public DeliveryId addDelivery(Delivery delivery) {
-        var id = UUID.randomUUID();
-        deliveries.put(id, delivery);
-        return new DeliveryId(id);
+    public void addDelivery(Delivery delivery) {
+        LoggableContext.putDeliveryId(UUID.fromString(delivery.getExternalId()));
+        deliveries.put(delivery.getExternalId(), delivery);
+        log.info("Новая доставка создана");
     }
 }
