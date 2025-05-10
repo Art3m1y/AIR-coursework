@@ -17,10 +17,8 @@ import edu.mirea.flower_shop_service.domain.exception.ObjectNotFoundException;
 import edu.mirea.flower_shop_service.domain.model.Delivery;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
 
 
-@Service
 @AllArgsConstructor
 @Slf4j
 public class DeliveryService implements ChangeDeliveryStatusUseCase, CreateDeliveryUseCase, CancelDeliveryUseCase {

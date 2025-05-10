@@ -9,10 +9,10 @@ rest:
 
 integration:
   delivery-service:
-    url: http://localhost:8083
+    host: http://localhost:8083
+    api-key: my-secure-api-key
     create-delivery-path: /api/v1/deliveries
     delete-delivery-path: /api/v1/deliveries/{id}/cancel
-    api-key: my-secure-api-key
 
 server:
   port: 8084

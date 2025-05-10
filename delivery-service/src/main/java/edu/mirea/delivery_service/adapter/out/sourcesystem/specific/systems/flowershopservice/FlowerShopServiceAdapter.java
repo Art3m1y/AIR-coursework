@@ -1,7 +1,7 @@
-package edu.mirea.delivery_service.adapter.out.sourcesystem.flowershopservice;
+package edu.mirea.delivery_service.adapter.out.sourcesystem.specific.systems.flowershopservice;
 
-import edu.mirea.delivery_service.adapter.out.sourcesystem.BaseSpecificSourceSystemAdapter;
-import edu.mirea.delivery_service.adapter.out.sourcesystem.SourceSystem;
+import edu.mirea.delivery_service.adapter.out.sourcesystem.specific.BaseSpecificSourceSystemAdapter;
+import edu.mirea.delivery_service.adapter.out.sourcesystem.specific.SourceSystem;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;

@@ -4,12 +4,12 @@ spring:
 
 rest:
   specifications:
-    flower-shop-service:
+    source-system-service:
       read-timeout: 3s
 
 integration:
   flower-shop-service:
-    url: http://localhost:8084
+    host: http://localhost:8084
     api-key: my-secure-api-key
 
 server:
@@ -18,7 +18,7 @@ server:
 resilience4j:
   retry:
     instances:
-      flower-shop-service:
+      source-system-service:
         max-attempts: 3
         wait-duration: 1s
         enable-exponential-backoff: true

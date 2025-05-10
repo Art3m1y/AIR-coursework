@@ -15,11 +15,13 @@ public class Delivery {
     private List<Item> items;
     @Setter
     private DeliveryStatus status;
+    private String sourceSystem;
 
-    public Delivery(Recipient recipient, Address address, List<Item> items) {
+    public Delivery(Recipient recipient, Address address, List<Item> items, String sourceSystem) {
         this.recipient = recipient;
         this.address = address;
         this.items = items;
+        this.sourceSystem = sourceSystem;
     }
 
     public void moveDeliveryStatus() {

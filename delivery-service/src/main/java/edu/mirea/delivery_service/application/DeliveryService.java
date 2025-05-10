@@ -14,9 +14,7 @@ import edu.mirea.delivery_service.domain.exception.ObjectNotFoundException;
 import edu.mirea.delivery_service.domain.model.Delivery;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
 
-@Service
 @Slf4j
 @RequiredArgsConstructor
 public class DeliveryService implements CreateDeliveryUseCase, CancelDeliveryUseCase, PromoteDeliveryStatusUseCase {
@@ -61,7 +59,7 @@ public class DeliveryService implements CreateDeliveryUseCase, CancelDeliveryUse
         var delivery = deliveryOpt.get();
         delivery.moveDeliveryStatus();
 
-        var changeDeliveryStatusInfo = new ChangeDeliveryStatusInfo(delivery.getId(), delivery.getStatus());
+        var changeDeliveryStatusInfo = new ChangeDeliveryStatusInfo(delivery.getId(), delivery.getStatus(), delivery.getSourceSystem());
         sourceServicePort.changeStatus(changeDeliveryStatusInfo);
 
         deliveryPersistencePort.updateDeliveryState(delivery);

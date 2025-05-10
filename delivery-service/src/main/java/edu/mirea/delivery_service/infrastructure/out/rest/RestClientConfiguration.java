@@ -1,7 +1,6 @@
 package edu.mirea.delivery_service.infrastructure.out.rest;
 
 import edu.mirea.delivery_service.adapter.out.IntegrationType;
-import edu.mirea.delivery_service.adapter.out.sourcesystem.flowershopservice.FlowerShopServiceProperties;
 import edu.mirea.delivery_service.infrastructure.out.rest.interceptors.RestLoggingInterceptor;
 import io.micrometer.observation.ObservationRegistry;
 import lombok.AllArgsConstructor;

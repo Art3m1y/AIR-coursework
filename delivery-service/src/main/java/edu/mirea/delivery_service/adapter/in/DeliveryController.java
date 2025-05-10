@@ -1,5 +1,8 @@
 package edu.mirea.delivery_service.adapter.in;
 
+import edu.mirea.delivery_service.adapter.in.dto.CreateDeliveryRqDto;
+import edu.mirea.delivery_service.adapter.in.dto.CreateDeliveryRsDto;
+import edu.mirea.delivery_service.adapter.out.sourcesystem.specific.SourceSystem;
 import edu.mirea.delivery_service.application.port.in.CancelDeliveryCommand;
 import edu.mirea.delivery_service.application.port.in.CancelDeliveryUseCase;
 import edu.mirea.delivery_service.application.port.in.CreateDeliveryCommand;
@@ -9,9 +12,13 @@ import edu.mirea.delivery_service.application.port.in.PromoteDeliveryStatusUseCa
 import edu.mirea.delivery_service.domain.model.DeliveryId;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.*;
-import edu.mirea.delivery_service.adapter.in.dto.CreateDeliveryRqDto;
-import edu.mirea.delivery_service.adapter.in.dto.CreateDeliveryRsDto;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
 
@@ -26,13 +33,19 @@ public class DeliveryController {
     private final DeliveryMapper deliveryMapper;
 
     @PostMapping
-    public CreateDeliveryRsDto createDelivery(@RequestBody CreateDeliveryRqDto requestDto) {
+    public CreateDeliveryRsDto createDelivery(
+            @RequestHeader String sourceSystem,
+            @RequestBody CreateDeliveryRqDto requestDto
+    ) {
         var result = createDeliveryUseCase.createDelivery(new CreateDeliveryCommand(deliveryMapper.toDelivery(requestDto)));
         return deliveryMapper.toResponseDto(result);
     }
 
     @DeleteMapping("{deliveryId}/cancel")
-    public void cancelDelivery(@PathVariable UUID deliveryId) {
+    public void cancelDelivery(
+            @RequestHeader SourceSystem sourceSystem,
+            @PathVariable UUID deliveryId
+    ) {
         cancelDeliveryUseCase.cancelDelivery(
                 new CancelDeliveryCommand(new DeliveryId(deliveryId))
         );

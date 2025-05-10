@@ -1,14 +1,17 @@
 package edu.mirea.delivery_service.adapter.out.sourcesystem;
 
+import edu.mirea.delivery_service.adapter.out.sourcesystem.specific.SpecificSourceSystemAdapter;
 import edu.mirea.delivery_service.application.port.out.ChangeDeliveryStatusInfo;
 import edu.mirea.delivery_service.application.port.out.SourceServicePort;
 import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
+@Primary
 @AllArgsConstructor
+@Component
 public class CompositeSourceSystemAdapter implements SourceServicePort {
     private final List<SpecificSourceSystemAdapter> specificSourceSystemAdapters;
 

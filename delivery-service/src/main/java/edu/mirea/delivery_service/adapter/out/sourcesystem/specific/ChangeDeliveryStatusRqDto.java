@@ -1,4 +1,4 @@
-package edu.mirea.delivery_service.adapter.out.sourcesystem;
+package edu.mirea.delivery_service.adapter.out.sourcesystem.specific;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
