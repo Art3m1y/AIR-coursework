@@ -2,6 +2,7 @@ package edu.mirea.delivery_service.adapter.out.sourcesystem.specific;
 
 import edu.mirea.delivery_service.adapter.out.IntegrationException;
 import edu.mirea.delivery_service.adapter.out.IntegrationType;
+import edu.mirea.delivery_service.adapter.out.sourcesystem.HttpUriBuilder;
 import edu.mirea.delivery_service.application.port.out.ChangeDeliveryStatusInfo;
 import io.github.resilience4j.retry.annotation.Retry;
 import lombok.RequiredArgsConstructor;
@@ -22,8 +23,7 @@ public abstract class BaseSpecificSourceSystemAdapter implements SpecificSourceS
     public void changeStatus(ChangeDeliveryStatusInfo info) {
         restClient
                 .post()
-                .uri(uriBuilder -> uriBuilder
-                        .host(getHost())
+                .uri(uriBuilder -> HttpUriBuilder.from(getHost())
                         .path(CHANGE_STATUS_PATH)
                         .build(info.getDeliveryId().getValue()))
                 .contentType(REQUEST_MEDIA_TYPE)
@@ -34,7 +34,7 @@ public abstract class BaseSpecificSourceSystemAdapter implements SpecificSourceS
     }
 
     public boolean isApplicable(String sourceSystem) {
-        return sourceSystem.equals(getSourceSystem().name());
+        return sourceSystem.equals(getSourceSystem().getName());
     }
 
     public void handleChangeStatusIntegrationException(ChangeDeliveryStatusInfo info, Exception e) {

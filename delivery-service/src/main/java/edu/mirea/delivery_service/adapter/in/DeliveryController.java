@@ -2,7 +2,6 @@ package edu.mirea.delivery_service.adapter.in;
 
 import edu.mirea.delivery_service.adapter.in.dto.CreateDeliveryRqDto;
 import edu.mirea.delivery_service.adapter.in.dto.CreateDeliveryRsDto;
-import edu.mirea.delivery_service.adapter.out.sourcesystem.specific.SourceSystem;
 import edu.mirea.delivery_service.application.port.in.CancelDeliveryCommand;
 import edu.mirea.delivery_service.application.port.in.CancelDeliveryUseCase;
 import edu.mirea.delivery_service.application.port.in.CreateDeliveryCommand;
@@ -34,16 +33,16 @@ public class DeliveryController {
 
     @PostMapping
     public CreateDeliveryRsDto createDelivery(
-            @RequestHeader String sourceSystem,
+            @RequestHeader(name = "SourceSystem") String sourceSystem,
             @RequestBody CreateDeliveryRqDto requestDto
     ) {
-        var result = createDeliveryUseCase.createDelivery(new CreateDeliveryCommand(deliveryMapper.toDelivery(requestDto)));
+        var result = createDeliveryUseCase.createDelivery(new CreateDeliveryCommand(deliveryMapper.toDelivery(sourceSystem, requestDto)));
         return deliveryMapper.toResponseDto(result);
     }
 
     @DeleteMapping("{deliveryId}/cancel")
     public void cancelDelivery(
-            @RequestHeader SourceSystem sourceSystem,
+            @RequestHeader(name = "SourceSystem") String sourceSystem,
             @PathVariable UUID deliveryId
     ) {
         cancelDeliveryUseCase.cancelDelivery(

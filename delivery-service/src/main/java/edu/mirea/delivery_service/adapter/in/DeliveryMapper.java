@@ -13,8 +13,8 @@ import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface DeliveryMapper {
-    @Mapping(target = "items", source = "items", qualifiedByName = "mapDtoToItems")
-    Delivery toDelivery(CreateDeliveryRqDto createDeliveryRqDto);
+    @Mapping(target = "items", source = "createDeliveryRqDto.items", qualifiedByName = "mapDtoToItems")
+    Delivery toDelivery(String sourceSystem, CreateDeliveryRqDto createDeliveryRqDto);
     @Mapping(target = "id", expression = "java(delivery.getId().getValue().toString())")
     @Mapping(target = "items", source = "items", qualifiedByName = "mapItemsToDto")
     CreateDeliveryRsDto toResponseDto(Delivery delivery);

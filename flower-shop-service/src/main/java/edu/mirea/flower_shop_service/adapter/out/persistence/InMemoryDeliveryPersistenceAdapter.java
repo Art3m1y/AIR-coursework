@@ -21,7 +21,7 @@ public class InMemoryDeliveryPersistenceAdapter implements DeliveryPersistencePo
     @Override
     public Optional<Delivery> findDelivery(String id) {
         LoggableContext.putDeliveryId(UUID.fromString(id));
-        return Optional.of(deliveries.get(id));
+        return Optional.ofNullable(deliveries.get(id));
     }
 
     @Override

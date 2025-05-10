@@ -9,7 +9,7 @@ rest:
 
 integration:
   flower-shop-service:
-    host: http://localhost:8084
+    host: localhost:8084
     api-key: my-secure-api-key
 
 server:

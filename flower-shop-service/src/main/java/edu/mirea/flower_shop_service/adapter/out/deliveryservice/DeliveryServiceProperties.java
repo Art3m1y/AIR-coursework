@@ -13,5 +13,5 @@ public class DeliveryServiceProperties {
     private String host;
     private String createDeliveryPath;
     private String deleteDeliveryPath;
-    private String apiKey;
+    private String sourceSystemName;
 }

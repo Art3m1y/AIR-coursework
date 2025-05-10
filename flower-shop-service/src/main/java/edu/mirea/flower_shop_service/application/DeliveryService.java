@@ -15,6 +15,7 @@ import edu.mirea.flower_shop_service.domain.enumeration.InnerDeliveryStatus;
 import edu.mirea.flower_shop_service.domain.enumeration.OrderStatus;
 import edu.mirea.flower_shop_service.domain.exception.ObjectNotFoundException;
 import edu.mirea.flower_shop_service.domain.model.Delivery;
+import edu.mirea.flower_shop_service.domain.model.DeliveryId;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -64,6 +65,7 @@ public class DeliveryService implements ChangeDeliveryStatusUseCase, CreateDeliv
         
         deliveryPersistencePort.addDelivery(delivery);
 
+        order.setDeliveryId(DeliveryId.fromString(delivery.getExternalId()));
         order.setStatus(OrderStatus.DELIVERING);
         orderPersistencePort.updateOrderState(order);
 

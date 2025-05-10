@@ -1,5 +1,7 @@
 package edu.mirea.flower_shop_service.infrastructure.out.rest;
 
+import edu.mirea.flower_shop_service.adapter.out.IntegrationType;
+import edu.mirea.flower_shop_service.infrastructure.out.rest.interceptors.RestLoggingInterceptor;
 import io.micrometer.observation.ObservationRegistry;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.actuate.metrics.web.client.ObservationRestClientCustomizer;
@@ -9,16 +11,12 @@ import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.JdkClientHttpRequestFactory;
 import org.springframework.http.client.observation.DefaultClientRequestObservationConvention;
 import org.springframework.web.client.RestClient;
-import edu.mirea.flower_shop_service.adapter.out.IntegrationType;
-import edu.mirea.flower_shop_service.adapter.out.deliveryservice.DeliveryServiceProperties;
-import edu.mirea.flower_shop_service.infrastructure.out.rest.interceptors.RestLoggingInterceptor;
 
 
 @Configuration
 @AllArgsConstructor
 public class RestClientConfiguration {
     private final RestClientProperties restClientProperties;
-    private final DeliveryServiceProperties deliveryServiceProperties;
     private final ObservationRegistry observationRegistry;
 
     @Bean
@@ -30,7 +28,6 @@ public class RestClientConfiguration {
         );
         customizer.customize(builder);
         return builder
-                .baseUrl(deliveryServiceProperties.getHost())
                 .requestInterceptor(new RestLoggingInterceptor())
                 .requestFactory(getCustomRequestFactory(IntegrationType.DELIVERY_SERVICE))
                 .build();
