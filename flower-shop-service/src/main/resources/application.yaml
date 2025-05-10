@@ -9,13 +9,13 @@ rest:
 
 integration:
   delivery-service:
-    host: localhost:8083
+    host: ${DELIVERY_SYSTEM_HOST}
     source-system-name: QASL-1923
     create-delivery-path: /api/v1/deliveries
     delete-delivery-path: /api/v1/deliveries/{id}/cancel
 
 server:
-  port: 8084
+  port: ${SERVICE_PORT}
 
 resilience4j:
   retry:

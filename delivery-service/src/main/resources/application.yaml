@@ -9,11 +9,11 @@ rest:
 
 integration:
   flower-shop-service:
-    host: localhost:8084
+    host: ${FLOWER_SHOP_SERVICE_HOST}
     api-key: my-secure-api-key
 
 server:
-  port: 8083
+  port: ${SERVICE_PORT}
 
 resilience4j:
   retry:
