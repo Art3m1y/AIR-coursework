@@ -1,4 +1,4 @@
-package edu.mirea.delivery_service.adapter.out.flowershopservice;
+package edu.mirea.delivery_service.adapter.out.sourcesystem.flowershopservice;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 @Setter
 @Component
 public class FlowerShopServiceProperties {
-    private String url;
-    private String changeDeliveryStatus;
+    private String host;
     private String apiKey;
 }

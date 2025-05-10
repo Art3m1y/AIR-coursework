@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Setter
 @Component
 public class DeliveryServiceProperties {
-    private String url;
+    private String host;
     private String createDeliveryPath;
     private String deleteDeliveryPath;
     private String apiKey;

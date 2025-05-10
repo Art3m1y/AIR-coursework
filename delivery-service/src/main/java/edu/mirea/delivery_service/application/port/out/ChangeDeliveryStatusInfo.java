@@ -10,4 +10,5 @@ import lombok.Getter;
 public class ChangeDeliveryStatusInfo {
     private final DeliveryId deliveryId;
     private final DeliveryStatus deliveryStatus;
+    private final String sourceSystem;
 }

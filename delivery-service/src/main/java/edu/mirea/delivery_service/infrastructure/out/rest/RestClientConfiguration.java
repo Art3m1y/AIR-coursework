@@ -1,7 +1,7 @@
 package edu.mirea.delivery_service.infrastructure.out.rest;
 
 import edu.mirea.delivery_service.adapter.out.IntegrationType;
-import edu.mirea.delivery_service.adapter.out.flowershopservice.FlowerShopServiceProperties;
+import edu.mirea.delivery_service.adapter.out.sourcesystem.flowershopservice.FlowerShopServiceProperties;
 import edu.mirea.delivery_service.infrastructure.out.rest.interceptors.RestLoggingInterceptor;
 import io.micrometer.observation.ObservationRegistry;
 import lombok.AllArgsConstructor;
@@ -18,21 +18,19 @@ import org.springframework.web.client.RestClient;
 @AllArgsConstructor
 public class RestClientConfiguration {
     private final RestClientProperties restClientProperties;
-    private final FlowerShopServiceProperties flowerShopServiceProperties;
     private final ObservationRegistry observationRegistry;
 
     @Bean
-    public RestClient deliveryServiceRestClient() {
+    public RestClient sourceSystemServiceRestClient() {
         var builder = RestClient.builder();
         var customizer = new ObservationRestClientCustomizer(
                 observationRegistry,
-                new DefaultClientRequestObservationConvention(IntegrationType.FLOWER_SHOP_SERVICE.getName())
+                new DefaultClientRequestObservationConvention(IntegrationType.SOURCE_SYSTEM_SERVICE.getName())
         );
         customizer.customize(builder);
         return builder
-                .baseUrl(flowerShopServiceProperties.getUrl())
                 .requestInterceptor(new RestLoggingInterceptor())
-                .requestFactory(getCustomRequestFactory(IntegrationType.FLOWER_SHOP_SERVICE))
+                .requestFactory(getCustomRequestFactory(IntegrationType.SOURCE_SYSTEM_SERVICE))
                 .build();
     }
 

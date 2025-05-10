@@ -30,7 +30,7 @@ public class RestClientConfiguration {
         );
         customizer.customize(builder);
         return builder
-                .baseUrl(deliveryServiceProperties.getUrl())
+                .baseUrl(deliveryServiceProperties.getHost())
                 .requestInterceptor(new RestLoggingInterceptor())
                 .requestFactory(getCustomRequestFactory(IntegrationType.DELIVERY_SERVICE))
                 .build();

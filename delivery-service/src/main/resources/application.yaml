@@ -10,7 +10,6 @@ rest:
 integration:
   flower-shop-service:
     url: http://localhost:8084
-    change-delivery-status: /api/v1/deliveries/{id}/change-status
     api-key: my-secure-api-key
 
 server:

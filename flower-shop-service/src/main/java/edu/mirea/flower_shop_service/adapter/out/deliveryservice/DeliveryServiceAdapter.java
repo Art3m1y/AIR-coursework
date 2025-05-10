@@ -33,7 +33,10 @@ public class DeliveryServiceAdapter implements DeliveryServicePort {
         var apiKey = deliveryServiceProperties.getApiKey();
 
         var responseDto = restClient.post()
-                .uri(deliveryServiceProperties.getCreateDeliveryPath())
+                .uri(uriBuilder -> uriBuilder
+                        .host(deliveryServiceProperties.getHost())
+                        .path(deliveryServiceProperties.getCreateDeliveryPath())
+                        .build())
                 .contentType(REQUEST_MEDIA_TYPE)
                 .body(requestDto)
                 .header(API_KEY_HEADER, apiKey)
@@ -56,6 +59,7 @@ public class DeliveryServiceAdapter implements DeliveryServicePort {
 
         restClient.delete()
                 .uri(uriBuilder -> uriBuilder
+                        .host(deliveryServiceProperties.getHost())
                         .path(deliveryServiceProperties.getDeleteDeliveryPath())
                         .build(info.getId()))
                 .header(API_KEY_HEADER, apiKey)

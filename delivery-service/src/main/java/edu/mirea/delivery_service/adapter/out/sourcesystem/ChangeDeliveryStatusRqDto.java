@@ -1,4 +1,4 @@
-package edu.mirea.delivery_service.adapter.out.flowershopservice.dto;
+package edu.mirea.delivery_service.adapter.out.sourcesystem;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
